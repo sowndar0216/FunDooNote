@@ -25,5 +25,6 @@ public interface IUserService {
 	public void deleteUser(Integer id);
 	public String logIn(User user);
 	public boolean checkEmail(User user);
+	public void verify(String token);
 	
 }

@@ -7,6 +7,8 @@ public interface INoteDao {
 
 	void addNote(Note note, User user);
 
-	void deleteNote(Integer id);
+	void deleteNote(Note note);
+
+	int updateNote(Note note);
 
 }

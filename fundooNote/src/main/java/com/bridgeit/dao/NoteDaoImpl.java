@@ -1,5 +1,6 @@
 package com.bridgeit.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,28 @@ public class NoteDaoImpl implements INoteDao{
 
 
 	@Override
-	public void deleteNote(Integer id) {
+	public void deleteNote(Note note) {
 		// TODO Auto-generated method stub
-	User user=getUser(id);
-	if (user != null) {
-		getCurrentSession().delete(user);
+	
+		getCurrentSession().delete(note);
+	
 	}
+
+
+	@Override
+	public int updateNote(Note note) {
+		// TODO Auto-generated method stub
+		String hql = "UPDATE Note set title =:title WHERE noteId = :noteID";
+		Query query = getCurrentSession().createQuery(hql);
+		query.setParameter("noteID", note.getNoteId());
+		query.setParameter("title", note.getTitle());
+		int result = query.executeUpdate();
+		System.out.println("Rows affected: " + result);
+
+        return result;
+
+	
+		
 	}
 	
 }

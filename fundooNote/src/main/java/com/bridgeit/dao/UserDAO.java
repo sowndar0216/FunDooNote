@@ -26,5 +26,6 @@ public interface UserDAO {
 	public void deleteUser(Integer id);
 	public String logIn(User user);
 	public boolean checkEmail(User user);
+	public void verifyToken(String token);
 
 }

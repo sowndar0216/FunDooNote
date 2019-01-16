@@ -148,7 +148,8 @@ public class UserDAOImpl implements UserDAO {
 			{
 				try {
 					//header.add("user-id", userList.get(i).getId());
-				return	UserToken.generateToken(user.getId());
+					System.out.println(userList.get(i).getId());
+				return	UserToken.generateToken(userList.get(i).getId());
 				
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -171,6 +172,17 @@ public class UserDAOImpl implements UserDAO {
 			}
 		}
 		return true;
+	}
+	@Override
+	public void verifyToken(String token) {
+		// TODO Auto-generated method stub
+		try {
+			UserToken.tokenVerify(token);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

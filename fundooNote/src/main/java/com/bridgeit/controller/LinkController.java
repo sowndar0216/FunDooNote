@@ -1,10 +1,13 @@
 package com.bridgeit.controller;
 
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +34,7 @@ public class LinkController {
 		return "wellcome";
 	}
 	
-	@PostMapping
+	
 	
 	@RequestMapping("/login")
 	public ResponseEntity<Response> logIn(@RequestBody User user)
@@ -55,6 +58,18 @@ public class LinkController {
 		System.out.println(header);
 		return new ResponseEntity<Response>(respone,header,HttpStatus.OK);
 
+	}
+	
+	@GetMapping(value="/verifyEmail/{token:.+}")
+	public ResponseEntity<Response> verifyEmail(@PathVariable String token){
+		
+		Response response=new Response();
+		System.out.println(token);
+	    userService.verify(token);
+	    response.setMessage("verifed");
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		
+		
 	}
 	
 	

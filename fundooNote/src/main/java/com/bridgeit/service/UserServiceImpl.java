@@ -1,5 +1,7 @@
 package com.bridgeit.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +97,14 @@ public class UserServiceImpl implements IUserService {
 	public boolean checkEmail(User user) {
 		return userDAO.checkEmail(user);
 
+	}
+
+	@Override
+	public void verify(String token) {
+		// TODO Auto-generated method stub
+	
+		userDAO.verifyToken(token);
+		
 	}
 
 }

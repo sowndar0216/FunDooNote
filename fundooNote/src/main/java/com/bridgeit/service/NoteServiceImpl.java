@@ -23,9 +23,17 @@ public class NoteServiceImpl implements INoteService
 	}
 
 	@Override
-	public void deleteNote(Integer id) {
+	public void deleteNote(Note note) {
 
-		noteDao.deleteNote(id);
+		noteDao.deleteNote(note);
 	}
+
+	@Override
+	public void updateNote(Note note) {
+		// TODO Auto-generated method stub
+		noteDao.updateNote(note);
+	}
+
+	
 
 }

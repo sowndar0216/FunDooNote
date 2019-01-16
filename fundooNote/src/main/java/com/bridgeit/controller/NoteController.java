@@ -25,12 +25,14 @@ public class NoteController {
 	@Autowired
 	private INoteService noteService;
 	
-	@RequestMapping("/addNote/{id}")
-	public ResponseEntity<Response> addNote(@RequestBody Note note,@PathVariable Integer  id){
+	@RequestMapping("/addNote")
+	public ResponseEntity<Response> addNote(@RequestBody Note note){
 		
-		tempUser=userService.getUser(id);
+	
 		
+		tempUser=userService.getUser(note.getUser().getId());
 		
+		System.out.println(note.getUser().getId());
 		noteService.addNote(note,tempUser);
 		respone=new Response();
 	    respone.setStatus("note added");
@@ -40,13 +42,24 @@ public class NoteController {
 	}
 	
 	@RequestMapping("/delete/{id}/{noteId}")
-	public ResponseEntity<Response> deleteUser(@PathVariable Integer id,@PathVariable Integer noteId) {
-		tempUser=userService.getUser(id);
+	public ResponseEntity<Response> deleteUser(@RequestBody Note note) {
+		
+		
+		tempUser=userService.getUser(note.getUser().getId());
+	
 		if(tempUser==null) {
-		noteService.deleteNote(noteId);
+		noteService.deleteNote(note);
 		}respone = new Response();
 		respone.setStatus("deleted");
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 	}
+	
+	@RequestMapping(value="/update/{noteId)")
+	public ResponseEntity<Response> update(@RequestBody Note note)
+	{
+	noteService.updateNote(note);	
+return new ResponseEntity<Response>(HttpStatus.OK);
+	}
+	
 }
