@@ -13,6 +13,7 @@ import com.bridgeit.dao.UserDAO;
 //import com.bridgeit.model.Team;
 import com.bridgeit.model.User;
 import com.bridgeit.model.UserOtp;
+import com.bridgeit.utility.Utility;
 
 
 
@@ -23,6 +24,8 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserDAO userDAO;
 
+	User tempUser;
+	String otp;
 	/*public void addTeam(Team team) {
 		teamDAO.addTeam(team);		
 	}
@@ -105,6 +108,37 @@ public class UserServiceImpl implements IUserService {
 	
 		userDAO.verifyToken(token);
 		
+	}
+
+	@Override
+	public boolean reSendOtp(User user) {
+
+		boolean checkUser=userDAO.checkEmail(user);
+		
+		if(!checkUser) {
+		tempUser=user;
+			 otp=Utility.getOtp();
+			System.out.println(otp);
+			Utility.emailOtp(user, otp);
+			
+			return true;
+		}
+		
+		
+		return false;
+	}
+
+	@Override
+	public boolean resetPassword(UserOtp userOtp) {
+		// TODO Auto-generated method stub
+		if(otp.equals(userOtp)) {
+			userDAO.resetPassword(tempUser);
+			
+			
+		}
+		
+		
+		return false;
 	}
 
 }

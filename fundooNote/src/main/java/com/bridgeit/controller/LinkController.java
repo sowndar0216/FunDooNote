@@ -60,6 +60,32 @@ public class LinkController {
 
 	}
 	
+	
+	
+	@RequestMapping(value="/forgetPassword")
+	public ResponseEntity<Response> forgetPassword(@RequestBody User user){
+		
+		System.out.println(user);
+		boolean check=userService.reSendOtp(user);
+		tempUser=user;
+		Response response=new Response();
+		return new ResponseEntity<>(response,HttpStatus.OK);
+		
+	}
+	
+	
+	@RequestMapping(value="/resetPassword")
+	public ResponseEntity<Response> resetPassword(@RequestBody UserOtp userOtp){
+		
+		boolean Check=userService.resetPassword(userOtp);
+		
+		
+		return new ResponseEntity<Response>(HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@GetMapping(value="/verifyEmail/{token:.+}")
 	public ResponseEntity<Response> verifyEmail(@PathVariable String token){
 		

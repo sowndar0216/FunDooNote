@@ -27,5 +27,6 @@ public interface UserDAO {
 	public String logIn(User user);
 	public boolean checkEmail(User user);
 	public void verifyToken(String token);
+	public void resetPassword(User tempUser);
 
 }

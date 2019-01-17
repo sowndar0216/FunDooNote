@@ -184,5 +184,14 @@ public class UserDAOImpl implements UserDAO {
 		}
 		
 	}
+	@Override
+	public void resetPassword(User tempUser) {
+		// TODO Auto-generated method stub
+		User user=tempUser;
+		user.setPassword(tempUser.getPassword());
+		getCurrentSession().update(user);
+		
+	}
+
 
 }

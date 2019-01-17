@@ -26,5 +26,7 @@ public interface IUserService {
 	public String logIn(User user);
 	public boolean checkEmail(User user);
 	public void verify(String token);
+	public boolean reSendOtp(User user);
+	public boolean resetPassword(UserOtp userOtp);
 	
 }
