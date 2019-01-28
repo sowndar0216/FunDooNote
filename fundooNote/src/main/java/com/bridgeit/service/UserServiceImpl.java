@@ -118,7 +118,11 @@ public class UserServiceImpl implements IUserService {
 		if(!checkUser) {
 		tempUser=user;
 			 otp=Utility.getOtp();
+			 
+			 
 			System.out.println(otp);
+			boolean resetOpt=userDAO.resetOtp(user,otp);
+			if(resetOpt)
 			Utility.emailOtp(user, otp);
 			
 			return true;
@@ -131,13 +135,23 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean resetPassword(UserOtp userOtp) {
 		// TODO Auto-generated method stub
-		if(otp.equals(userOtp)) {
+	
+		List<UserOtp> otpList =userDAO.getOtp();
+		
+		for(int i=0;i<otpList.size();i++)
+		{	
+			System.out.println(userOtp.getOtp()+ "   " +otpList.get(i).getOtp() );
+		if(otpList.get(i).getOtp().equals(userOtp.getOtp()))
+		{
+		System.out.println("ss");
+		System.out.println(tempUser);
 			userDAO.resetPassword(tempUser);
-			
+		return true;	
 			
 		}
 		
-		
+		}
+		System.out.println("sssss");
 		return false;
 	}
 

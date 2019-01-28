@@ -28,5 +28,7 @@ public interface UserDAO {
 	public boolean checkEmail(User user);
 	public void verifyToken(String token);
 	public void resetPassword(User tempUser);
+	public List<UserOtp> getOtp();
+	public boolean resetOtp(User user,String otp);
 
 }

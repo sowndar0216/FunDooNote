@@ -109,7 +109,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<UserOtp> getOtp() {
+	public List<UserOtp> getOtps() {
 
 		// TODO Auto-generated method stub
 		return getCurrentSession().createQuery("from UserOtp").list();
@@ -118,7 +118,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public boolean verifyOtp(UserOtp otp) {
 		System.out.println("verifyOtp" + otp.getOtp());
-		List<UserOtp> otpList = getOtp();
+		List<UserOtp> otpList = getOtps();
 		System.out.println(otpList.get(0).getOtp() + "  " + otp.getOtp());
 		for (int i = 0; i < otpList.size(); i++) {
 			if (otpList.get(i).getOtp().equals(otp.getOtp())) {
@@ -165,13 +165,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 	@Override
 	public boolean checkEmail(User user) {
+		System.out.println(user.getEmail());
 		List<User> listUser=getUsers();
+		
+		if(listUser.size()==0) {
+			return true;
+		}else {
 		for(int i=0;i<listUser.size();i++) {
+			System.out.println(listUser.get(i).getEmail());
 			if(listUser.get(i).getEmail().equals(user.getEmail())) {
+				System.out.println("a");
 				return false;
 			}
 		}
+		
 		return true;
+		}
+		
 	}
 	@Override
 	public void verifyToken(String token) {
@@ -187,10 +197,76 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void resetPassword(User tempUser) {
 		// TODO Auto-generated method stub
-		User user=tempUser;
+		User user=new User();
+		
+	
+		
+		List<User>userList=getUsers();
+		
+		
+		
+		for(int i=0;i<userList.size();i++) {
+			
+			if(userList.get(i).getEmail().equals(tempUser.getEmail())) {
+				
+				
+				 user=userList.get(i);
+				
+				
+			}
+			
+			
+		}
+		
 		user.setPassword(tempUser.getPassword());
+		
+		
+		
 		getCurrentSession().update(user);
 		
+	}
+	@Override
+	public List<UserOtp> getOtp() {
+		// TODO Auto-generated method stub
+		return getCurrentSession().createQuery("from UserOtp").list();	
+		}
+	@Override
+	public boolean resetOtp(User user,String otp) {
+		// TODO Auto-generated method stub
+		
+		
+	
+	
+		UserOtp otp2 = new UserOtp();
+	List<UserOtp> userList=getOtp();
+	UserOtp newUser=new UserOtp();
+	for(int i=0;i<userList.size();i++) {
+		
+		if(userList.get(i).getEmail().equals(user.getEmail())) {
+			
+		 newUser=userList.get(i);
+		}
+		
+		
+	}
+	
+	
+		newUser.setEmail(user.getEmail());
+		newUser.setOtp(otp);
+	
+
+		System.out.println(newUser.getEmail() + "  " + newUser.getOtp() );
+
+		// getCurrentSession().update(otp2);
+		System.out.println("update");
+		getCurrentSession().update(newUser);
+System.out.println("updated");
+		return true;
+	
+		
+		
+		
+
 	}
 
 
