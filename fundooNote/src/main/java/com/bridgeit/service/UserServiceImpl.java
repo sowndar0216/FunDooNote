@@ -1,6 +1,5 @@
 package com.bridgeit.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import java.util.List;
 

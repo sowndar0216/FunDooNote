@@ -30,13 +30,14 @@ public class NoteDaoImpl implements INoteDao{
 	
 	
 	@Override
-	public void addNote(Note note, User user) {
+	public void addNote(Note note) {
 	
 		
-		note.setUser(user);
+		
 	 
 
 		getCurrentSession().save(note);
+		System.out.println("added");
 	}
 
 

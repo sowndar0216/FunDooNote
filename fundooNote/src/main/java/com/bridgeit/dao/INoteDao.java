@@ -5,7 +5,7 @@ import com.bridgeit.model.User;
 
 public interface INoteDao {
 
-	void addNote(Note note, User user);
+	void addNote(Note note);
 
 	void deleteNote(Note note);
 

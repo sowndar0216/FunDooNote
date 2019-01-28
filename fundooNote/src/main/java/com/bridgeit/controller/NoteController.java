@@ -3,9 +3,12 @@ package com.bridgeit.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgeit.model.Note;
@@ -15,6 +18,7 @@ import com.bridgeit.service.INoteService;
 import com.bridgeit.service.IUserService;
 
 @RestController
+@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "token" })
 public class NoteController {
 
 	Response respone;
@@ -25,16 +29,20 @@ public class NoteController {
 	@Autowired
 	private INoteService noteService;
 	
-	@RequestMapping("/addNote")
-	public ResponseEntity<Response> addNote(@RequestBody Note note){
+	@RequestMapping(value="/addNote",method=RequestMethod.POST)
+	public ResponseEntity<Response> addNote(@RequestBody Note note,@RequestHeader("token") String token){
 		
-	
+	System.out.println("note"+note);
+		System.out.println(token);
 		
-		tempUser=userService.getUser(note.getUser().getId());
+		noteService.addNote(note, token);
+		
+		//tempUser=userService.getUser(note.getUser().getId());
 		
 		System.out.println(note.getUser().getId());
-		noteService.addNote(note,tempUser);
+		//noteService.addNote(note,tempUser);
 		respone=new Response();
+		respone.setStatusCode(166);
 	    respone.setStatus("note added");
 		
 	    
