@@ -1,5 +1,7 @@
 package com.bridgeit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,15 +47,59 @@ public class NoteServiceImpl implements INoteService
 	}
 
 	@Override
-	public void deleteNote(Note note) {
+	public void deleteNote(Note note,String token) {
 
-		noteDao.deleteNote(note);
+		try {
+			int id=UserToken.tokenVerify(token);
+			User user=userService.getUser(id);
+			System.out.println(id);
+			note.setUser(user);
+			noteDao.deleteNote(note);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
-	public void updateNote(Note note) {
+	public void updateNote(Note note,String token) {
 		// TODO Auto-generated method stub
-		noteDao.updateNote(note);
+		try {
+			int id=UserToken.tokenVerify(token);
+			User user=userService.getUser(id);
+			System.out.println(id);
+			note.setUser(user);
+
+			noteDao.updateNote(note);
+			
+	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Note> getNotes(String token) {
+	
+		try {
+			int id=UserToken.tokenVerify(token);
+			User user=userService.getUser(id);
+			System.out.println(id);
+						
+			return noteDao.getNotes(id);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		return null;
 	}
 
 	

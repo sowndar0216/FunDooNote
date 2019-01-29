@@ -1,5 +1,7 @@
 package com.bridgeit.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ import com.bridgeit.service.INoteService;
 import com.bridgeit.service.IUserService;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "token" })
+	@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "token" })
 public class NoteController {
 
 	Response respone;
@@ -49,25 +51,30 @@ public class NoteController {
 	    return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	}
 	
-	@RequestMapping("/delete/{id}/{noteId}")
-	public ResponseEntity<Response> deleteUser(@RequestBody Note note) {
+	@RequestMapping("/delete")
+	public ResponseEntity<Response> deleteUser(@RequestBody Note note,@RequestHeader("token") String token) {
 		
 		
 		tempUser=userService.getUser(note.getUser().getId());
 	
-		if(tempUser==null) {
-		noteService.deleteNote(note);
-		}respone = new Response();
+		noteService.deleteNote(note,token);
+		respone = new Response();
 		respone.setStatus("deleted");
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 	}
 	
-	@RequestMapping(value="/update/{noteId)")
-	public ResponseEntity<Response> update(@RequestBody Note note)
+	@RequestMapping(value="/update")
+	public ResponseEntity<Response> update(@RequestBody Note note,@RequestHeader("token") String token)
 	{
-	noteService.updateNote(note);	
+	noteService.updateNote(note,token);	
 return new ResponseEntity<Response>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getNote",method=RequestMethod.POST)
+	public  ResponseEntity<List<Note>> getNotes(@RequestHeader("token") String token){
+		
+		List<Note> getnotes=noteService.getNotes(token);		
+		 return new ResponseEntity<List<Note>>(getnotes,HttpStatus.OK);
+	}
 }

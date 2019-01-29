@@ -1,8 +1,11 @@
 package com.bridgeit.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -64,6 +67,19 @@ public class NoteDaoImpl implements INoteDao{
 
 	
 		
+	}
+
+
+	@Override
+	public List<Note> getNotes(int id) {
+		// TODO Auto-generated method stub
+		
+		List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user").add(Restrictions.eq("id", id)).list();
+
+		System.out.println(list);
+		
+		
+		return list;
 	}
 	
 }
