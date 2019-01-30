@@ -71,9 +71,9 @@ public class NoteController {
 return new ResponseEntity<Response>(HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/getNote",method=RequestMethod.POST)
+	@RequestMapping(value="/getNote",method=RequestMethod.GET)
 	public  ResponseEntity<List<Note>> getNotes(@RequestHeader("token") String token){
-		
+			
 		List<Note> getnotes=noteService.getNotes(token);		
 		 return new ResponseEntity<List<Note>>(getnotes,HttpStatus.OK);
 	}

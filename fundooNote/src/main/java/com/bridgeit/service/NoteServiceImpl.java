@@ -86,7 +86,7 @@ public class NoteServiceImpl implements INoteService
 	
 		try {
 			int id=UserToken.tokenVerify(token);
-			User user=userService.getUser(id);
+			//User user=userService.getUser(id);
 			System.out.println(id);
 						
 			return noteDao.getNotes(id);
