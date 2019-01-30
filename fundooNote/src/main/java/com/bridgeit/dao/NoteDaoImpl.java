@@ -73,7 +73,6 @@ public class NoteDaoImpl implements INoteDao{
 	@Override
 	public List<Note> getNotes(int id) {
 		// TODO Auto-generated method stub
-		
 		List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user").add(Restrictions.eq("id", id)).list();
 
 		System.out.println(list);

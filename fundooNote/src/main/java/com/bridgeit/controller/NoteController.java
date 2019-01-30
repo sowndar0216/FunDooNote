@@ -45,6 +45,7 @@ public class NoteController {
 		//noteService.addNote(note,tempUser);
 		respone=new Response();
 		respone.setStatusCode(166);
+		
 	    respone.setStatus("note added");
 		
 	    
