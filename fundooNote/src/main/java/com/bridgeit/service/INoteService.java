@@ -12,5 +12,9 @@ public interface INoteService {
 
 	public void updateNote(Note note,String token);
 
-	public List getNotes(String token);
+	public List<Note> getNotes(String token);
+
+	public List<Note> getArchiveNotes(String token);
+
+	public void archiveNote(Note note, String token);
 }

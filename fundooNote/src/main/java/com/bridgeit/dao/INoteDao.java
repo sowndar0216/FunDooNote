@@ -11,7 +11,7 @@ public interface INoteDao {
 
 	void deleteNote(Note note);
 
-	int updateNote(Note note);
+	void updateNote(Note note);
 	
 	
 	List<Note> getNotes(int id);

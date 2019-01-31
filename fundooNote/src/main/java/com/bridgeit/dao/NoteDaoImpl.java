@@ -54,16 +54,10 @@ public class NoteDaoImpl implements INoteDao{
 
 
 	@Override
-	public int updateNote(Note note) {
+	public void updateNote(Note note) {
 		// TODO Auto-generated method stub
-		String hql = "UPDATE Note set title =:title WHERE noteId = :noteID";
-		Query query = getCurrentSession().createQuery(hql);
-		query.setParameter("noteID", note.getNoteId());
-		query.setParameter("title", note.getTitle());
-		int result = query.executeUpdate();
-		System.out.println("Rows affected: " + result);
-
-        return result;
+	 
+	  getCurrentSession().update(note);
 
 	
 		
@@ -73,7 +67,12 @@ public class NoteDaoImpl implements INoteDao{
 	@Override
 	public List<Note> getNotes(int id) {
 		// TODO Auto-generated method stub
-		List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user").add(Restrictions.eq("id", id)).list();
+//		
+	
+		
+		
+		
+	List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user").add(Restrictions.eq("id", id)).list();
 
 		System.out.println(list);
 		

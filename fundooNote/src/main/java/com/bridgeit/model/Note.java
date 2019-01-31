@@ -20,7 +20,7 @@ public class Note implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "noteId")
-	private Integer noteId;
+	private int noteId;
 
 	@Column(name = "title")
 	private String title;
@@ -32,7 +32,7 @@ public class Note implements Serializable {
 	private boolean pinned;
 	
 	@Column(name="archive")
-	private boolean archive;
+	private int archive;
 	
 	@Column(name="color")
 	private String color;
@@ -61,11 +61,11 @@ public class Note implements Serializable {
 		this.pinned = pinned;
 	}
 
-	public boolean isArchive() {
+	public int getArchive() {
 		return archive;
 	}
 
-	public void setArchive(boolean archive) {
+	public void setArchive(int archive) {
 		this.archive = archive;
 	}
 
@@ -154,11 +154,11 @@ public class Note implements Serializable {
 		this.id = id;
 	}
 */
-	public Integer getNoteId() {
+	public int getNoteId() {
 		return noteId;
 	}
 
-	public void setNoteId(Integer noteId) {
+	public void setNoteId(int noteId) {
 		this.noteId = noteId;
 	}
 
