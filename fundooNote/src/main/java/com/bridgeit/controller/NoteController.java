@@ -72,15 +72,20 @@ public class NoteController {
 	    return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	}
 	
-	@RequestMapping("/delete")
+	@RequestMapping(value="/deleteNote",method=RequestMethod.POST)
 	public ResponseEntity<Response> deleteUser(@RequestBody Note note,@RequestHeader("token") String token) {
 		
 		
-		tempUser=userService.getUser(note.getUser().getId());
+		//tempUser=userService.getUser(note.getUser().getId());
 	
-		noteService.deleteNote(note,token);
+		//noteService.deleteNote(note,token);
+		
+		System.out.println("delete to 1");
+		noteService.updateDeleteNote(note,token);	
 		respone = new Response();
-		respone.setStatus("deleted");
+		
+		
+		respone.setStatusCode(166);
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 	}

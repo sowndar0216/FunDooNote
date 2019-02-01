@@ -55,6 +55,7 @@ public class NoteServiceImpl implements INoteService
 			User user=userService.getUser(id);
 			System.out.println(id);
 			note.setUser(user);
+			System.out.println();
 			noteDao.deleteNote(note);
 		
 		} catch (Exception e) {
@@ -80,7 +81,7 @@ public class NoteServiceImpl implements INoteService
 			}
 			
 			
-			
+			System.out.println("after delete to 1  "+note);
 			noteDao.updateNote(note);
 			
 	
@@ -100,20 +101,17 @@ public class NoteServiceImpl implements INoteService
 			
 			List<Note> unArchiveNotes=new ArrayList<>();
 			List<Note> listAll=noteDao.getNotes(id);
-			for(int i=0;i<listAll.size();i++) {
-				if(listAll.get(i).getArchive()==0) {
-					unArchiveNotes.add(listAll.get(i));
+			
 					
 					
-					
-				}
 				
 				
-			}
+				
 			
 			
 			
-			return unArchiveNotes;
+			
+			return listAll;
 			
 			
 		} catch (Exception e) {
@@ -182,6 +180,29 @@ public class NoteServiceImpl implements INoteService
 		
 		
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateDeleteNote(Note note, String token) {
+		// TODO Auto-generated method stub
+		try {
+			int id=UserToken.tokenVerify(token);
+			if(note.getTrash()==0) {
+				note.setTrash(1);
+				}else {
+					note.setArchive(0);
+				}
+				
+				
+				
+				noteDao.updateNote(note);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		
 	}
 

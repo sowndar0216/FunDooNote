@@ -38,7 +38,7 @@ public class Note implements Serializable {
 	private String color;
 	
 	@Column(name="trash")
-	private boolean trash;
+	private int trash;
 	 
 	@Column(name="createStamp")
 	private Date createStamp;
@@ -77,11 +77,11 @@ public class Note implements Serializable {
 		this.color = color;
 	}
 
-	public boolean isTrash() {
+	public int getTrash() {
 		return trash;
 	}
 
-	public void setTrash(boolean trash) {
+	public void setTrash(int trash) {
 		this.trash = trash;
 	}
 

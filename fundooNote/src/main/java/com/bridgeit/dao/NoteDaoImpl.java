@@ -56,7 +56,7 @@ public class NoteDaoImpl implements INoteDao{
 	@Override
 	public void updateNote(Note note) {
 		// TODO Auto-generated method stub
-	 
+	 System.out.println(note);
 	  getCurrentSession().update(note);
 
 	

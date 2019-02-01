@@ -17,4 +17,6 @@ public interface INoteService {
 	public List<Note> getArchiveNotes(String token);
 
 	public void archiveNote(Note note, String token);
+
+	public void updateDeleteNote(Note note, String token);
 }
