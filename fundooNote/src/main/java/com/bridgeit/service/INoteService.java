@@ -19,4 +19,10 @@ public interface INoteService {
 	public void archiveNote(Note note, String token);
 
 	public void updateDeleteNote(Note note, String token);
+
+	public void updateRestoreNote(Note note);
+
+	public void updateColorNote(Note note);
+
+	public void deleteNoteForever(Note note);
 }

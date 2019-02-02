@@ -90,4 +90,9 @@ public class WebAppConfig {
 		return resolver;
 	}
 
+	@Bean
+	public String getKey() {
+		return "amigo";
+	}
+	
 }

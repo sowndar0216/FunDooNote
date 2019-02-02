@@ -12,6 +12,7 @@ import com.bridgeit.dao.UserDAO;
 //import com.bridgeit.model.Team;
 import com.bridgeit.model.User;
 import com.bridgeit.model.UserOtp;
+import com.bridgeit.utility.ASEAlgorithm;
 import com.bridgeit.utility.Utility;
 
 
@@ -22,6 +23,9 @@ public class UserServiceImpl implements IUserService {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+@Autowired
+private String key;
 
 	User tempUser;
 	String otp;
@@ -48,6 +52,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void addUser(User user) {
 		// TODO Auto-generated method stub
+		System.out.println(key);
+		String encryptString=	ASEAlgorithm.encrypt(user.getPassword(), key);
+		user.setPassword(encryptString);
+				
 		userDAO.addUser(user);
 	}
 
@@ -92,6 +100,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String logIn(User user) {
 		// TODO Auto-generated method stub
+		
+		System.out.println(key);
+		String encryptString=	ASEAlgorithm.encrypt(user.getPassword(), key);
+		user.setPassword(encryptString);
+		
 	return userDAO.logIn(user);	
 	}
 

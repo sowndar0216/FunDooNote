@@ -32,13 +32,13 @@ public class Note implements Serializable {
 	private boolean pinned;
 	
 	@Column(name="archive")
-	private int archive;
+	private boolean archive;
 	
 	@Column(name="color")
 	private String color;
 	
 	@Column(name="trash")
-	private int trash;
+	private boolean trash;
 	 
 	@Column(name="createStamp")
 	private Date createStamp;
@@ -61,13 +61,7 @@ public class Note implements Serializable {
 		this.pinned = pinned;
 	}
 
-	public int getArchive() {
-		return archive;
-	}
-
-	public void setArchive(int archive) {
-		this.archive = archive;
-	}
+	
 
 	public String getColor() {
 		return color;
@@ -77,11 +71,20 @@ public class Note implements Serializable {
 		this.color = color;
 	}
 
-	public int getTrash() {
+
+	public boolean isArchive() {
+		return archive;
+	}
+
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
+
+	public boolean isTrash() {
 		return trash;
 	}
 
-	public void setTrash(int trash) {
+	public void setTrash(boolean trash) {
 		this.trash = trash;
 	}
 

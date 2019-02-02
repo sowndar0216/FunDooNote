@@ -16,4 +16,6 @@ public interface INoteDao {
 	
 	List<Note> getNotes(int id);
 
+	void deleteNoteForever(Note note);
+
 }

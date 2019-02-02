@@ -74,10 +74,10 @@ public class NoteServiceImpl implements INoteService
 //			System.out.println(id);
 		//	note.setUser(user);
 
-			if(note.getArchive()==0) {
-			note.setArchive(1);
+			if(note.isArchive()==false) {
+			note.setArchive(true);
 			}else {
-				note.setArchive(0);
+				note.setArchive(false);
 			}
 			
 			
@@ -135,7 +135,7 @@ public class NoteServiceImpl implements INoteService
 			List<Note> archiveNotes=new ArrayList<>();
 			List<Note> listAll=noteDao.getNotes(id);
 			for(int i=0;i<listAll.size();i++) {
-				if(listAll.get(i).getArchive()==1) {
+				if(listAll.get(i).isArchive()==true) {
 					archiveNotes.add(listAll.get(i));
 					System.out.println(archiveNotes);
 					
@@ -168,7 +168,7 @@ public class NoteServiceImpl implements INoteService
 			User user=userService.getUser(id);
 			System.out.println(id);
 			note.setUser(user);
-			note.setArchive(1);
+			note.setArchive(true);
 			noteDao.addNote(note);
 			
 				
@@ -188,10 +188,10 @@ public class NoteServiceImpl implements INoteService
 		// TODO Auto-generated method stub
 		try {
 			int id=UserToken.tokenVerify(token);
-			if(note.getTrash()==0) {
-				note.setTrash(1);
+			if(note.isTrash()==false) {
+				note.setTrash(true);
 				}else {
-					note.setArchive(0);
+					note.setArchive(true);
 				}
 				
 				
@@ -202,6 +202,50 @@ public class NoteServiceImpl implements INoteService
 			e.printStackTrace();
 		}
 
+		
+		
+	}
+
+	@Override
+	public void updateRestoreNote(Note note) {
+		try {
+			
+//			User user=userService.getUser(id);
+//			System.out.println(id);
+		//	note.setUser(user);
+
+			if(note.isTrash()==false) {
+			note.setTrash(true);
+			}else {
+				note.setTrash(false);
+			}
+			
+			
+			System.out.println("after delete to 1  "+note);
+			noteDao.updateNote(note);
+			
+	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public void updateColorNote(Note note) {
+		// TODO Auto-generated method stub
+		System.out.println("before"+note);
+		
+		noteDao.updateNote(note);
+		System.out.println("after"+note);
+		
+	}
+
+	@Override
+	public void deleteNoteForever(Note note) {
+		// TODO Auto-generated method stub
+		
+		noteDao.deleteNoteForever(note);
 		
 		
 	}

@@ -79,5 +79,13 @@ public class NoteDaoImpl implements INoteDao{
 		
 		return list;
 	}
+
+
+	@Override
+	public void deleteNoteForever(Note note) {
+		// TODO Auto-generated method stub
+		getCurrentSession().delete(note);
+		
+	}
 	
 }

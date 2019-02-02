@@ -90,6 +90,31 @@ public class NoteController {
 
 	}
 	
+	
+	
+	@RequestMapping(value="/deleteNoteForever",method=RequestMethod.POST)
+	public ResponseEntity<Response> deleteNoteForever(@RequestBody Note note) {
+		
+		
+		//tempUser=userService.getUser(note.getUser().getId());
+	
+		//noteService.deleteNote(note,token);
+		
+		System.out.println("delete to 1");
+		noteService.deleteNoteForever(note);	
+		respone = new Response();
+		
+		
+		respone.setStatusCode(166);
+		return new ResponseEntity<Response>(respone, HttpStatus.OK);
+
+	}
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/updateNote",method=RequestMethod.POST)
 	public ResponseEntity<Response> update(@RequestBody Note note,@RequestHeader("token") String token)
 	{
@@ -122,7 +147,30 @@ return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	
 	
 	
+	@RequestMapping(value="/updateRestoreNote",method=RequestMethod.POST)
+	public ResponseEntity<Response> updateRestoreNote(@RequestBody Note note)
+	{
 	
+		System.out.println("restore"+note);
+		noteService.updateRestoreNote(note);	
+	respone=new Response();
+	respone.setStatusCode(166);
+	
+return new ResponseEntity<Response>(respone,HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/updateColorNote",method=RequestMethod.POST)
+	public ResponseEntity<Response> updateColorNote(@RequestBody Note note)
+	{
+	
+		System.out.println("restore"+note);
+		noteService.updateColorNote(note);	
+	respone=new Response();
+	respone.setStatusCode(166);
+	
+return new ResponseEntity<Response>(respone,HttpStatus.OK);
+	}
 	
 	
 	
