@@ -2,6 +2,7 @@ package com.bridgeit.dao;
 
 import java.util.List;
 
+import com.bridgeit.dto.UserDto;
 import com.bridgeit.model.Note;
 import com.bridgeit.model.Team;
 import com.bridgeit.model.User;
@@ -24,7 +25,7 @@ public interface UserDAO {
 	public boolean sendOtp(User user);
 	public boolean verifyOtp(UserOtp otp);
 	public void deleteUser(Integer id);
-	public String logIn(User user);
+	public UserDto logIn(User user);
 	public boolean checkEmail(User user);
 	public void verifyToken(String token);
 	public void resetPassword(User tempUser);

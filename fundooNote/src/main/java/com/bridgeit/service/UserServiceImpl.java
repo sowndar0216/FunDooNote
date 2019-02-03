@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bridgeit.dao.UserDAO;
+import com.bridgeit.dto.UserDto;
 //import com.bridgeit.model.Note;
 //import com.bridgeit.model.Team;
 import com.bridgeit.model.User;
@@ -98,7 +99,7 @@ private String key;
 	}
 
 	@Override
-	public String logIn(User user) {
+	public UserDto logIn(User user) {
 		// TODO Auto-generated method stub
 		
 		System.out.println(key);

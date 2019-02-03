@@ -13,6 +13,14 @@
 	</properties>
 
 	<dependencies>
+	
+	<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
+<dependency>
+    <groupId>org.modelmapper</groupId>
+    <artifactId>modelmapper</artifactId>
+    <version>0.7.5</version>
+</dependency>
+	
 		<!-- DB related dependencies -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

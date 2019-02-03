@@ -2,6 +2,7 @@ package com.bridgeit.service;
 
 import java.util.List;
 
+import com.bridgeit.dto.UserDto;
 import com.bridgeit.model.Note;
 import com.bridgeit.model.Team;
 import com.bridgeit.model.User;
@@ -23,7 +24,7 @@ public interface IUserService {
 	public boolean verifyOtp(UserOtp otp);
 	
 	public void deleteUser(Integer id);
-	public String logIn(User user);
+	public UserDto logIn(User user);
 	public boolean checkEmail(User user);
 	public void verify(String token);
 	public boolean reSendOtp(User user);

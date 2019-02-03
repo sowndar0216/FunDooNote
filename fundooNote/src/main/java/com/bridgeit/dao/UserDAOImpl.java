@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
+import com.bridgeit.dto.UserDto;
 import com.bridgeit.model.User;
 import com.bridgeit.model.UserOtp;
 import com.bridgeit.utility.UserToken;
@@ -140,21 +143,23 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 	@Override
-	public String logIn(User user) {
+	public UserDto logIn(User user) {
 		HttpHeaders header=new HttpHeaders();
 		List<User> userList=getUsers();
 		for(int i=0;i<userList.size();i++) {
 			if(userList.get(i).getEmail().equals(user.getEmail())&&userList.get(i).getPassword().equals(user.getPassword()))
 			{
-				try {
-					//header.add("user-id", userList.get(i).getId());
-					System.out.println(userList.get(i).getId());
-				return	UserToken.generateToken(userList.get(i).getId());
 				
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					//header.add("user-id", userList.get(i).getId());
+					
+					System.out.println(userList.get(i).getId());
+			ModelMapper mapper = new ModelMapper();	
+					
+					UserDto dto=mapper.map(userList.get(i), UserDto.class );
+							
+				return dto;
+				
+				
 			}
 		}
 		return null;

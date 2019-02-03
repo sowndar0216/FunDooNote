@@ -16,17 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgeit.dto.UserDto;
 import com.bridgeit.model.Response;
 import com.bridgeit.model.User;
 import com.bridgeit.model.UserOtp;
 import com.bridgeit.service.IUserService;
+import com.bridgeit.utility.UserToken;
 
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "jwtTokenxxx" })
 
 public class LinkController {
 
-	static Logger logger=LoggerFactory.getLogger(LinkController.class);
+	//	static Logger logger=LoggerFactory.getLogger(LinkController.class);
 	User tempUser;
 	Response respone;
 
@@ -39,15 +41,18 @@ public class LinkController {
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ResponseEntity<Response> logIn(@RequestBody User user,HttpServletResponse response1) {
+	public ResponseEntity<Response> logIn(@RequestBody User user,HttpServletResponse response1) throws Exception {
 
 		respone = new Response();
 		
 		respone.setStatus("log  in sucessful..");
 		System.out.println(user);
-		 logger.trace("User Registration");
-		String token = userService.logIn(user);
-
+		// logger.trace("User Registration");
+		 
+		 
+		 
+		UserDto userData= userService.logIn(user);
+		 String token = UserToken.generateToken(userData.getId());
 		//System.out.println(tempUser);
 		System.out.println(token);
 		
@@ -56,6 +61,8 @@ public class LinkController {
 		//header.add("jwtToken", token);
 		response1.addHeader("jwtTokenxxx", token);
 		respone.setStatusCode(200);
+		respone.setData(userData);
+
 		System.out.println(token);
 		
 		return new ResponseEntity<Response>(respone,HttpStatus.OK);

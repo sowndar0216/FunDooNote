@@ -51,26 +51,7 @@ public class NoteController {
 	    
 	    return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	}
-	@RequestMapping(value="/archiveNote",method=RequestMethod.POST)
-	public ResponseEntity<Response> archiveNote(@RequestBody Note note,@RequestHeader("token") String token){
-		
-	System.out.println("note"+note);
-		System.out.println(token);
-		
-		noteService.archiveNote(note, token);
-		
-		//tempUser=userService.getUser(note.getUser().getId());
-		
-		System.out.println(note.getUser().getId());
-		//noteService.addNote(note,tempUser);
-		respone=new Response();
-		respone.setStatusCode(166);
-		
-	    respone.setStatus("note added");
-		
-	    
-	    return new ResponseEntity<Response>(respone,HttpStatus.OK);
-	}
+	
 	
 	@RequestMapping(value="/deleteNote",method=RequestMethod.POST)
 	public ResponseEntity<Response> deleteUser(@RequestBody Note note,@RequestHeader("token") String token) {
@@ -138,12 +119,6 @@ return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	
 	
 
-	@RequestMapping(value="/getArchiveNote",method=RequestMethod.GET)
-	public  ResponseEntity<List<Note>> getArchiveNotes(@RequestHeader("token") String token){
-			
-		List<Note> getArchivenotes=noteService.getArchiveNotes(token);		
-		 return new ResponseEntity<List<Note>>(getArchivenotes,HttpStatus.OK);
-	}
 	
 	
 	
