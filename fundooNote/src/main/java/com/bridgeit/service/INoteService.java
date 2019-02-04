@@ -25,4 +25,6 @@ public interface INoteService {
 	public void updateColorNote(Note note);
 
 	public void deleteNoteForever(Note note);
+
+	public void updateEditNote(Note note);
 }

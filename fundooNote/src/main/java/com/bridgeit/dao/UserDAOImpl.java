@@ -122,6 +122,8 @@ public class UserDAOImpl implements UserDAO {
 	public boolean verifyOtp(UserOtp otp) {
 		System.out.println("verifyOtp" + otp.getOtp());
 		List<UserOtp> otpList = getOtps();
+		
+		
 		System.out.println(otpList.get(0).getOtp() + "  " + otp.getOtp());
 		for (int i = 0; i < otpList.size(); i++) {
 			if (otpList.get(i).getOtp().equals(otp.getOtp())) {

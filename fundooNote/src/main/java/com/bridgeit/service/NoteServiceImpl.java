@@ -250,6 +250,14 @@ public class NoteServiceImpl implements INoteService
 		
 	}
 
+	@Override
+	public void updateEditNote(Note note) {
+		// TODO Auto-generated method stub
+		System.out.println("going  to update ");
+		noteDao.updateNote(note);
+		System.out.println("updated suceesfully");
+	}
+
 	
 
 }

@@ -20,7 +20,7 @@ import com.bridgeit.service.INoteService;
 import com.bridgeit.service.IUserService;
 
 @RestController
-	@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "token" })
+	@CrossOrigin(origins = { "*" }, exposedHeaders = { "token" })
 public class NoteController {
 
 	Response respone;
@@ -117,9 +117,20 @@ return new ResponseEntity<Response>(respone,HttpStatus.OK);
 	}
 	
 	
-	
+		
 
 	
+	@RequestMapping(value="/updateEditNote",method=RequestMethod.POST)
+	public ResponseEntity<Response> updateEditNote(@RequestBody Note note)
+	{
+	
+		System.out.println("restore"+note);
+		noteService.updateEditNote(note);	
+	respone=new Response();
+	respone.setStatusCode(166);
+	
+return new ResponseEntity<Response>(respone,HttpStatus.OK);
+	}
 	
 	
 	@RequestMapping(value="/updateRestoreNote",method=RequestMethod.POST)
