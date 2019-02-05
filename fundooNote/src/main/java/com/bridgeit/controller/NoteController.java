@@ -20,7 +20,7 @@ import com.bridgeit.service.INoteService;
 import com.bridgeit.service.IUserService;
 
 @RestController
-	@CrossOrigin(origins = { "*" }, exposedHeaders = { "token" })
+	//@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "token" })
 public class NoteController {
 
 	Response respone;

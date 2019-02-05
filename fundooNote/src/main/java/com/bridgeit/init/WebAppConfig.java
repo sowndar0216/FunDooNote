@@ -64,8 +64,10 @@ public class WebAppConfig {
 	private Properties hibProperties() {
 		Properties properties = new Properties();
 		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-		  // Setting Hibernate properties
-	      properties.put(PROPERTY_NAME_UPDATE, env.getRequiredProperty("hibernate.hbm2ddl.auto"));
+		
+		// Setting Hibernate properties
+	    
+		properties.put(PROPERTY_NAME_UPDATE, env.getRequiredProperty("hibernate.hbm2ddl.auto"));
 
 
 		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));

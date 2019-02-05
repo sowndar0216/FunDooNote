@@ -24,7 +24,7 @@ import com.bridgeit.service.IUserService;
 import com.bridgeit.utility.UserToken;
 
 @RestController
-@CrossOrigin(origins = { "*" }, exposedHeaders = { "jwtTokenxxx" })
+@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "jwtTokenxxx" })
 
 public class LinkController {
 
