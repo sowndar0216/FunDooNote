@@ -1,11 +1,15 @@
 package com.bridgeit.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bridgeit.model.Label;
+import com.bridgeit.model.Note;
 @Repository
 public class LabelDaoImpl implements LabelDAO {
 
@@ -25,6 +29,15 @@ public class LabelDaoImpl implements LabelDAO {
 		getCurrentSession().save(label);
 		
 		return true;
+	}
+
+
+	@Override
+	public List<Label> getLabels(int userId) {
+		// TODO Auto-generated method stub
+		List<Label> list = getCurrentSession().createCriteria(Label.class).createCriteria("noteList").add(Restrictions.eq("userId", userId)).list();
+System.out.println(list);
+		return list;
 	}
 
 }

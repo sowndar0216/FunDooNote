@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "note")
 
@@ -59,6 +61,7 @@ public class Note implements Serializable {
 	private String remainder;
 
 	@ManyToMany(mappedBy = "noteList")
+	@JsonIgnore
 	private List<Label> label;
 
 	@ManyToOne
