@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.bridgeit.model.Label;
 import com.bridgeit.model.Note;
+
 @Repository
 public class LabelDaoImpl implements LabelDAO {
-
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -20,23 +20,22 @@ public class LabelDaoImpl implements LabelDAO {
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
-	
+
 	@Override
 	public boolean addlabel(Label label) {
 		// TODO Auto-generated method stub
-		System.out.println("dao"+label);
+		System.out.println("dao" + label);
 		getCurrentSession().save(label);
-		
+
 		return true;
 	}
 
-
 	@Override
-	public List<Label> getLabels(int userId) {
+	public List<Label> getLabels(int id) {
 		// TODO Auto-generated method stub
-		List<Label> list = getCurrentSession().createCriteria(Label.class).createCriteria("noteList").add(Restrictions.eq("userId", userId)).list();
-System.out.println(list);
+		List<Label> list = getCurrentSession().createCriteria(Label.class).createCriteria("noteList")
+				.add(Restrictions.eq("id", id)).list();
+		System.out.println(list);
 		return list;
 	}
 

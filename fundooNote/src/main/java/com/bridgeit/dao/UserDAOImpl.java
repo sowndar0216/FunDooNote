@@ -25,40 +25,8 @@ public class UserDAOImpl implements UserDAO {
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-/*
-	public void addTeam(Team team) {
-		getCurrentSession().save(team);
-	}
 
-	public void updateTeam(Team team) {
-
-		System.out.println(team.getName() + "ename" + team.getRating());
-		Team teamToUpdate = getTeam(team.getId());
-		System.out.println(teamToUpdate.getName() + "namwe" + teamToUpdate.getRating());
-
-		teamToUpdate.setName(team.getName());
-		teamToUpdate.setRating(team.getRating());
-		getCurrentSession().update(teamToUpdate);
-
-	}
-
-	public Team getTeam(int id) {
-		Team team = (Team) getCurrentSession().get(Team.class, id);
-		return team;
-	}
-
-	public void deleteTeam(int id) {
-		Team team = getTeam(id);
-		if (team != null)
-			getCurrentSession().delete(team);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Team> getTeams() {
-		return getCurrentSession().createQuery("from Team").list();
-	}
-
-*/	@Override
+	@Override
 	public void addUser(User user) {
 		getCurrentSession().save(user);
 
@@ -77,14 +45,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void updateUser(User user, Integer id, User userCon) {
-		// TODO Auto-generated method stub
-		// System.out.println(user);
-		// System.out.println(id);
+
 		User userUpdate = getUser(user.getId());
-		// System.out.println(userUpdate.getEmail()+" "+userUpdate.getName()+ "
-		// "+userUpdate.getId());
-		// System.out.println(userUpdate+" user");
-		// System.out.println(user.getName()+" "+user.getEmail());
 		userUpdate.setName(userCon.getName());
 		userUpdate.setEmail(userCon.getEmail());
 		getCurrentSession().update(userUpdate);
@@ -101,9 +63,7 @@ public class UserDAOImpl implements UserDAO {
 		otp2.setEmail(user.getEmail());
 		otp2.setOtp(otp);
 		otp2.setId(user.getId());
-
 		System.out.println(otp2.getEmail() + "  " + otp2.getOtp() + "  " + otp2.getId());
-
 		// getCurrentSession().update(otp2);
 		System.out.println("update");
 		getCurrentSession().save(otp2);
@@ -122,8 +82,7 @@ public class UserDAOImpl implements UserDAO {
 	public boolean verifyOtp(UserOtp otp) {
 		System.out.println("verifyOtp" + otp.getOtp());
 		List<UserOtp> otpList = getOtps();
-		
-		
+
 		System.out.println(otpList.get(0).getOtp() + "  " + otp.getOtp());
 		for (int i = 0; i < otpList.size(); i++) {
 			if (otpList.get(i).getOtp().equals(otp.getOtp())) {
@@ -134,7 +93,6 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
-
 	@Override
 	public void deleteUser(Integer id) {
 
@@ -144,52 +102,49 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 	}
+
 	@Override
 	public UserDto logIn(User user) {
-		HttpHeaders header=new HttpHeaders();
-		List<User> userList=getUsers();
-		for(int i=0;i<userList.size();i++) {
-			if(userList.get(i).getEmail().equals(user.getEmail())&&userList.get(i).getPassword().equals(user.getPassword()))
+		HttpHeaders header = new HttpHeaders();
+		List<User> userList = getUsers();
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i).getEmail().equals(user.getEmail())
+					&& userList.get(i).getPassword().equals(user.getPassword()))
 			{
-				
-					//header.add("user-id", userList.get(i).getId());
-					
-					System.out.println(userList.get(i).getId());
-			ModelMapper mapper = new ModelMapper();	
-					
-					UserDto dto=mapper.map(userList.get(i), UserDto.class );
-							
+				System.out.println(userList.get(i).getId());
+				ModelMapper mapper = new ModelMapper();
+
+				UserDto dto = mapper.map(userList.get(i), UserDto.class);
+
 				return dto;
-				
-				
+
 			}
 		}
 		return null;
-		
-		
-		
-	
+
 	}
+
 	@Override
 	public boolean checkEmail(User user) {
 		System.out.println(user.getEmail());
-		List<User> listUser=getUsers();
-		
-		if(listUser.size()==0) {
+		List<User> listUser = getUsers();
+
+		if (listUser.size() == 0) {
 			return true;
-		}else {
-		for(int i=0;i<listUser.size();i++) {
-			System.out.println(listUser.get(i).getEmail());
-			if(listUser.get(i).getEmail().equals(user.getEmail())) {
-				System.out.println("a");
-				return false;
+		} else {
+			for (int i = 0; i < listUser.size(); i++) {
+				System.out.println(listUser.get(i).getEmail());
+				if (listUser.get(i).getEmail().equals(user.getEmail())) {
+					System.out.println("a");
+					return false;
+				}
 			}
+
+			return true;
 		}
-		
-		return true;
-		}
-		
+
 	}
+
 	@Override
 	public void verifyToken(String token) {
 		// TODO Auto-generated method stub
@@ -199,82 +154,58 @@ public class UserDAOImpl implements UserDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	@Override
 	public void resetPassword(User tempUser) {
 		// TODO Auto-generated method stub
-		User user=new User();
-		
-	
-		
-		List<User>userList=getUsers();
-		
-		
-		
-		for(int i=0;i<userList.size();i++) {
-			
-			if(userList.get(i).getEmail().equals(tempUser.getEmail())) {
-				
-				
-				 user=userList.get(i);
-				
-				
+		User user = new User();
+
+		List<User> userList = getUsers();
+
+		for (int i = 0; i < userList.size(); i++) {
+
+			if (userList.get(i).getEmail().equals(tempUser.getEmail())) {
+
+				user = userList.get(i);
 			}
-			
-			
 		}
-		
+
 		user.setPassword(tempUser.getPassword());
-		
-		
-		
+
 		getCurrentSession().update(user);
-		
+
 	}
+
 	@Override
 	public List<UserOtp> getOtp() {
 		// TODO Auto-generated method stub
-		return getCurrentSession().createQuery("from UserOtp").list();	
-		}
-	@Override
-	public boolean resetOtp(User user,String otp) {
-		// TODO Auto-generated method stub
-		
-		
-	
-	
-		UserOtp otp2 = new UserOtp();
-	List<UserOtp> userList=getOtp();
-	UserOtp newUser=new UserOtp();
-	for(int i=0;i<userList.size();i++) {
-		
-		if(userList.get(i).getEmail().equals(user.getEmail())) {
-			
-		 newUser=userList.get(i);
-		}
-		
-		
+		return getCurrentSession().createQuery("from UserOtp").list();
 	}
-	
-	
+
+	@Override
+	public boolean resetOtp(User user, String otp) {
+		// TODO Auto-generated method stub
+
+		UserOtp otp2 = new UserOtp();
+		List<UserOtp> userList = getOtp();
+		UserOtp newUser = new UserOtp();
+		for (int i = 0; i < userList.size(); i++) {
+
+			if (userList.get(i).getEmail().equals(user.getEmail())) {
+
+				newUser = userList.get(i);
+			}
+		}
 		newUser.setEmail(user.getEmail());
 		newUser.setOtp(otp);
-	
-
-		System.out.println(newUser.getEmail() + "  " + newUser.getOtp() );
-
-		// getCurrentSession().update(otp2);
+		System.out.println(newUser.getEmail() + "  " + newUser.getOtp());
 		System.out.println("update");
 		getCurrentSession().update(newUser);
-System.out.println("updated");
+		System.out.println("updated");
 		return true;
-	
-		
-		
-		
 
 	}
-
 
 }

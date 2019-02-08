@@ -1,6 +1,6 @@
 package com.bridgeit.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,240 +14,156 @@ import com.bridgeit.utility.UserToken;
 
 @Service
 @Transactional
-public class NoteServiceImpl implements INoteService
-{
+public class NoteServiceImpl implements INoteService {
 
 	@Autowired
 	private INoteDao noteDao;
-	
-	@Autowired 
+
+	@Autowired
 	private IUserService userService;
-	
-	
+
 	@Override
 	public boolean addNote(Note note, String token) {
-		//noteDao.addNote(note,);
-		
+		// noteDao.addNote(note,);
+
 		try {
-			int id=UserToken.tokenVerify(token);
-			User user=userService.getUser(id);
+			int id = UserToken.tokenVerify(token);
+			User user = userService.getUser(id);
 			System.out.println(id);
 			note.setUser(user);
-			
+
 			noteDao.addNote(note);
-			
-			
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return false;
 	}
 
 	@Override
-	public void deleteNote(Note note,String token) {
+	public void deleteNote(Note note, String token) {
 
 		try {
-			int id=UserToken.tokenVerify(token);
-			User user=userService.getUser(id);
+			int id = UserToken.tokenVerify(token);
+			User user = userService.getUser(id);
 			System.out.println(id);
 			note.setUser(user);
 			System.out.println();
 			noteDao.deleteNote(note);
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
-	public void updateNote(Note note,String token) {
+	public boolean updateArchiveNote(Note note) {
 		// TODO Auto-generated method stub
-		try {
-			int id=UserToken.tokenVerify(token);
-//			User user=userService.getUser(id);
-//			System.out.println(id);
-		//	note.setUser(user);
 
-			if(note.isArchive()==false) {
+		if (note.isArchive() == false) {
 			note.setArchive(true);
-			}else {
-				note.setArchive(false);
-			}
-			
-			
-			System.out.println("after delete to 1  "+note);
-			noteDao.updateNote(note);
-			
-	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			note.setArchive(false);
 		}
+
+		System.out.println("after delete to 1  " + note);
+		noteDao.updateNote(note);
+
+		return true;
 	}
 
 	@Override
 	public List<Note> getNotes(String token) {
-	
+
 		try {
-			int id=UserToken.tokenVerify(token);
-			//User user=userService.getUser(id);
-			System.out.println(id);		
-			
-			List<Note> unArchiveNotes=new ArrayList<>();
-			List<Note> listAll=noteDao.getNotes(id);
-			
-					
-					
-				
-				
-				
-			
-			
-			
-			
+			int id = UserToken.tokenVerify(token);
+			// User user=userService.getUser(id);
+			System.out.println(id);
+
+			List<Note> listAll = noteDao.getNotes(id);
+
 			return listAll;
-			
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
-		
 		return null;
-	}
-
-	@Override
-	public List<Note> getArchiveNotes(String token) {
-		// TODO Auto-generated method stub
-		try {
-			int id=UserToken.tokenVerify(token);
-			//User user=userService.getUser(id);
-			System.out.println(id);		
-			
-			List<Note> archiveNotes=new ArrayList<>();
-			List<Note> listAll=noteDao.getNotes(id);
-			for(int i=0;i<listAll.size();i++) {
-				if(listAll.get(i).isArchive()==true) {
-					archiveNotes.add(listAll.get(i));
-					System.out.println(archiveNotes);
-					
-					
-				}
-				
-				
-			}
-			
-			
-			
-			return archiveNotes;
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
-		
-		return null;
-
 	}
 
 	@Override
 	public void archiveNote(Note note, String token) {
 		try {
-			int id=UserToken.tokenVerify(token);
-			User user=userService.getUser(id);
+			int id = UserToken.tokenVerify(token);
+			User user = userService.getUser(id);
 			System.out.println(id);
 			note.setUser(user);
 			note.setArchive(true);
 			noteDao.addNote(note);
-			
-				
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void updateDeleteNote(Note note, String token) {
+	public boolean updateTrashNote(Note note) {
 		// TODO Auto-generated method stub
-		try {
-			int id=UserToken.tokenVerify(token);
-			if(note.isTrash()==false) {
-				note.setTrash(true);
-				}else {
-					note.setArchive(true);
-				}
-				
-				
-				
-				noteDao.updateNote(note);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (note.isTrash() == false) {
+			note.setTrash(true);
+		} else {
+			note.setTrash(false);
 		}
 
-		
-		
+		return noteDao.updateNote(note);
+
 	}
 
 	@Override
 	public void updateRestoreNote(Note note) {
-		try {
-			
-//			User user=userService.getUser(id);
-//			System.out.println(id);
-		//	note.setUser(user);
 
-			if(note.isTrash()==false) {
-			note.setTrash(true);
-			}else {
+
+			if (note.isTrash() == false) {
+				note.setTrash(true);
+			} else {
 				note.setTrash(false);
 			}
-			
-			
-			System.out.println("after delete to 1  "+note);
+
+			System.out.println("after delete to 1  " + note);
 			noteDao.updateNote(note);
-			
-	
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+
+		
 	}
 
 	@Override
-	public void updateColorNote(Note note) {
+	public boolean updateColorsNote(Note note) {
 		// TODO Auto-generated method stub
-		System.out.println("before"+note);
-		
-		noteDao.updateNote(note);
-		System.out.println("after"+note);
-		
+	
+
+			
+				noteDao.updateNote(note);
+				System.out.println("after" + note);
+				return true;
+			
+
+
 	}
 
 	@Override
 	public void deleteNoteForever(Note note) {
 		// TODO Auto-generated method stub
-		
+
 		noteDao.deleteNoteForever(note);
-		
-		
+
 	}
 
 	@Override
@@ -258,6 +174,42 @@ public class NoteServiceImpl implements INoteService
 		System.out.println("updated suceesfully");
 	}
 
-	
+	@Override
+	public Note getNoteById(int id) {
+
+		return noteDao.getNoteById(id);
+	}
+
+	@Override
+	public boolean verifyUser(String token, Note note) {
+
+		try {
+			int id = UserToken.tokenVerify(token);
+			if (note.getUser().getId() == id) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean updatePinNote(Note note) {
+
+
+		if (note.isPinned() == false) {
+			note.setPinned(true);
+		} else {
+			note.setPinned(false);
+		}
+
+		noteDao.updateNote(note);
+		
+		
+		return false;
+	}
 
 }

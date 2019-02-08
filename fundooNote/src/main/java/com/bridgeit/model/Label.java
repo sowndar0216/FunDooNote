@@ -26,15 +26,14 @@ public class Label implements Serializable {
 	private int labelId;
 
 	@Column(name = "labelName")
-	private String labelName;	
-	
-	@Column(name = "userId")
-	private int userId;	
-	
-	
+	private String labelName;
+
+	@Column(name = "id")
+	private int id;
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "Note_Label", joinColumns = {
-			@JoinColumn(name = "LABEL_ID") }, inverseJoinColumns = { @JoinColumn(name = "NOTE_ID") })
+	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "LABEL_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "NOTE_ID") })
 	private List<Note> noteList;
 
 	public int getLabelId() {
@@ -62,19 +61,17 @@ public class Label implements Serializable {
 	}
 
 	public int getUserId() {
-		return userId;
+		return id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserId(int id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "Label [labelId=" + labelId + ", labelName=" + labelName + ", userId=" + userId + ", noteList="
-				+ noteList + "]";
+		return "Label [labelId=" + labelId + ", labelName=" + labelName + ", userId=" + id + ", noteList=" + noteList
+				+ "]";
 	}
-
-	
 
 }

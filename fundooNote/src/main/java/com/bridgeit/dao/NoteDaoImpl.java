@@ -13,79 +13,67 @@ import com.bridgeit.model.Note;
 import com.bridgeit.model.User;
 
 @Repository
-public class NoteDaoImpl implements INoteDao{
-
+public class NoteDaoImpl implements INoteDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
 
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-
 	public User getUser(Integer id) {
 		User user = (User) getCurrentSession().get(User.class, id);
 		return user;
 	}
-	
-	
-	
+
 	@Override
 	public void addNote(Note note) {
-	
-		
-		
-	 
 
 		getCurrentSession().save(note);
 		System.out.println("added");
 	}
 
-
 	@Override
 	public void deleteNote(Note note) {
 		// TODO Auto-generated method stub
-	
-		getCurrentSession().delete(note);
-	
-	}
 
+		getCurrentSession().delete(note);
+
+	}
 
 	@Override
-	public void updateNote(Note note) {
+	public boolean updateNote(Note note) {
 		// TODO Auto-generated method stub
-	 System.out.println(note);
-	  getCurrentSession().update(note);
-
-	
-		
+		System.out.println(note);
+		getCurrentSession().update(note);
+		return true;
 	}
 
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Note> getNotes(int id) {
-		// TODO Auto-generated method stub
-//		
-	
-		
-		
-		
-	List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user").add(Restrictions.eq("id", id)).list();
+
+		List<Note> list = getCurrentSession().createCriteria(Note.class).createCriteria("user")
+				.add(Restrictions.eq("id", id)).list();
 
 		System.out.println(list);
-		
-		
+
 		return list;
 	}
-
 
 	@Override
 	public void deleteNoteForever(Note note) {
 		// TODO Auto-generated method stub
 		getCurrentSession().delete(note);
-		
+
 	}
-	
+
+	@Override
+	public Note getNoteById(int noteId) {
+
+		Note note = (Note) getCurrentSession().get(Note.class, noteId);
+		return note;
+	}
+
 }

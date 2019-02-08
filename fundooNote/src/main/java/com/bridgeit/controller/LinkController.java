@@ -28,7 +28,7 @@ import com.bridgeit.utility.UserToken;
 
 public class LinkController {
 
-	//	static Logger logger=LoggerFactory.getLogger(LinkController.class);
+	// static Logger logger=LoggerFactory.getLogger(LinkController.class);
 	User tempUser;
 	Response respone;
 
@@ -40,75 +40,70 @@ public class LinkController {
 		return "wellcome";
 	}
 
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ResponseEntity<Response> logIn(@RequestBody User user,HttpServletResponse response1) throws Exception {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Response> logIn(@RequestBody User user, HttpServletResponse response1) throws Exception {
 
 		respone = new Response();
-		
+
 		respone.setStatus("log  in sucessful..");
 		System.out.println(user);
 		// logger.trace("User Registration");
-		 
-		 
-		 
-		UserDto userData= userService.logIn(user);
-		 String token = UserToken.generateToken(userData.getId());
-		//System.out.println(tempUser);
-		System.out.println(token);
-		
 
-		if(token!=null) {
-		//header.add("jwtToken", token);
-		response1.addHeader("jwtTokenxxx", token);
-		respone.setStatusCode(200);
-		respone.setData(userData);
-
+		UserDto userData = userService.logIn(user);
+		String token = UserToken.generateToken(userData.getId());
+		// System.out.println(tempUser);
 		System.out.println(token);
-		
-		return new ResponseEntity<Response>(respone,HttpStatus.OK);
-		
-		
-		}
-		else {
+
+		if (token != null) {
+			// header.add("jwtToken", token);
+			response1.addHeader("jwtTokenxxx", token);
+			respone.setStatusCode(200);
+			respone.setData(userData);
+
+			System.out.println(token);
+
+			return new ResponseEntity<Response>(respone, HttpStatus.OK);
+
+		} else {
 			respone.setStatusCode(404);
-			return new ResponseEntity<Response>(respone,HttpStatus.OK);
+			return new ResponseEntity<Response>(respone, HttpStatus.OK);
 		}
 	}
 
-	@RequestMapping(value = "/forgetPassword",method=RequestMethod.POST)
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
 	public ResponseEntity<Response> forgetPassword(@RequestBody User user) {
 
 		System.out.println(user);
 		boolean check = userService.reSendOtp(user);
 		Response response = new Response();
-		
-		if(check) {
-		tempUser = user;
-		System.out.println(tempUser);
-		response.setStatusCode(200);
-		return new ResponseEntity<Response>(response, HttpStatus.OK);
-		}	
-		response.setStatusCode(404);
-		
-		return new ResponseEntity<Response>(response, HttpStatus.OK);
-		
-	}
 
-	@RequestMapping(value = "/resetPassword",method=RequestMethod.POST)
-	public ResponseEntity<Response> resetPassword(@RequestBody UserOtp userOtp) {
-
-		System.out.println("user otp"+userOtp);
-		boolean check = userService.resetPassword(userOtp);
-		Response response=new Response();
-		if(check) {
-        response.setStatusCode(200);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
+		if (check) {
+			tempUser = user;
+			System.out.println(tempUser);
+			response.setStatusCode(200);
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}
 		response.setStatusCode(404);
-		return new ResponseEntity<Response>(response,HttpStatus.OK);
+
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 
 	}
- 
+
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ResponseEntity<Response> resetPassword(@RequestBody UserOtp userOtp) {
+
+		System.out.println("user otp" + userOtp);
+		boolean check = userService.resetPassword(userOtp);
+		Response response = new Response();
+		if (check) {
+			response.setStatusCode(200);
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
+		}
+		response.setStatusCode(404);
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+
+	}
+
 	@GetMapping(value = "/verifyEmail/{token:.+}")
 	public ResponseEntity<Response> verifyEmail(@PathVariable String token) {
 
@@ -135,7 +130,7 @@ public class LinkController {
 			return new ResponseEntity<Response>(respone, HttpStatus.OK);
 		}
 		respone.setStatus("otp not sent");
-		
+
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 		// teamService.addUser(user);
@@ -174,7 +169,7 @@ public class LinkController {
 
 	}
 
-	@RequestMapping(value="/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<Response> register(@RequestBody UserOtp otp) {
 		// System.out.println("register");
 		System.out.println(otp);
@@ -191,7 +186,7 @@ public class LinkController {
 			return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 		}
-respone.setStatusCode(404);
+		respone.setStatusCode(404);
 		respone.setStatus("user is not registered");
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 	}

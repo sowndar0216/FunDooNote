@@ -11,42 +11,37 @@ import com.bridgeit.model.Label;
 import com.bridgeit.model.Note;
 import com.bridgeit.utility.UserToken;
 
-
 @Service
 @Transactional
 public class LabelServiceImpl implements ILabelService {
 
 	@Autowired
 	private LabelDAO labelDAO;
-	
-	
-	
+
 	@Override
 	public boolean addLabel(Label label) {
-		
-	System.out.println("LIST of NOTE"	+label.getNoteList());
 
-		boolean check=labelDAO.addlabel(label);
-		
+		System.out.println("LIST of NOTE" + label.getNoteList());
+
+		boolean check = labelDAO.addlabel(label);
+
 		return true;
 	}
 
-
-
 	@Override
 	public List<Label> getLabel(String token) {
-		
+
 		try {
-			int id=UserToken.tokenVerify(token);
-			System.out.println("token   "+token);
-			List<Label> listAll=labelDAO.getLabels(id);
-			System.out.println("list of LABEL   "+listAll);
+			int id = UserToken.tokenVerify(token);
+			System.out.println("token   " + token);
+			List<Label> listAll = labelDAO.getLabels(id);
+			System.out.println("list of LABEL   " + listAll);
 			return listAll;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
