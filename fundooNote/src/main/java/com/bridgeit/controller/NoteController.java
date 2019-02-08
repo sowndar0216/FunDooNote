@@ -35,6 +35,7 @@ public class NoteController {
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST)
 	public ResponseEntity<Response> addNote(@RequestBody Note note, @RequestHeader("token") String token) {
 
+		System.out.println("new note   "+note);
 		noteService.addNote(note, token);
 		respone = new Response();
 		respone.setStatusCode(166);
@@ -107,11 +108,10 @@ public class NoteController {
 
 		return new ResponseEntity<List<Note>>(getnotes, HttpStatus.OK);
 	}
-
+//update edited note
 	@RequestMapping(value = "/note", method = RequestMethod.PUT)
 	public ResponseEntity<Response> updateEditNote(@RequestBody Note note, @RequestHeader("token") String token) {
 
-		System.out.println("restore" + note);
 		respone = new Response();
 		boolean check = noteService.verifyUser(token, note);
 

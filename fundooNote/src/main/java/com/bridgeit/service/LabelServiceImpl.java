@@ -45,4 +45,58 @@ public class LabelServiceImpl implements ILabelService {
 		return null;
 	}
 
+	@Override
+	public boolean updateLabel(Label label, String token) {
+		
+		try {
+			int id = UserToken.tokenVerify(token);
+			
+			if(id==label.getUserId()) {
+				
+				return labelDAO.updateLabel(label);
+				
+				
+				
+			}
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
+
+	@Override
+	public Label getLabelById(int labelId) {
+		
+		return labelDAO.getLabelById(labelId);
+	}
+
+	@Override
+	public boolean userVerify(Label label, String token) {
+		try {
+			int id = UserToken.tokenVerify(token);
+			if(id==label.getUserId()) {
+				
+				
+				return labelDAO.deleteLabel(label);
+				
+				
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
+
 }

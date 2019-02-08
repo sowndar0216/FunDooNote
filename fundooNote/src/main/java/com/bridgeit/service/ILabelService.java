@@ -11,4 +11,10 @@ public interface ILabelService {
 
 	List<Label> getLabel(String token);
 
+	boolean updateLabel(Label label, String token);
+
+	Label getLabelById(int labelId);
+
+	boolean userVerify(Label label, String token);
+
 }

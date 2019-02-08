@@ -10,4 +10,10 @@ public interface LabelDAO {
 
 	List<Label> getLabels(int id);
 
+	boolean updateLabel(Label label);
+
+	Label getLabelById(int labelId);
+
+	boolean deleteLabel(Label label);
+
 }

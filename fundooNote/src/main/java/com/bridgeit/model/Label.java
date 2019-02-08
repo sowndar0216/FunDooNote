@@ -32,8 +32,8 @@ public class Label implements Serializable {
 	private int id;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "LABEL_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "NOTE_ID") })
+	@JoinTable(name = "Note_Label", joinColumns = { @JoinColumn(name = "NOTE_ID")}, inverseJoinColumns = { @JoinColumn(name = "LABEL_ID")
+			 })
 	private List<Note> noteList;
 
 	public int getLabelId() {

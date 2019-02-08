@@ -24,8 +24,8 @@ public class NoteServiceImpl implements INoteService {
 
 	@Override
 	public boolean addNote(Note note, String token) {
-		// noteDao.addNote(note,);
-
+		// noteDao.addNote(note
+		System.out.println(note);
 		try {
 			int id = UserToken.tokenVerify(token);
 			User user = userService.getUser(id);

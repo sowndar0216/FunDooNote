@@ -33,10 +33,29 @@ public class LabelDaoImpl implements LabelDAO {
 	@Override
 	public List<Label> getLabels(int id) {
 		// TODO Auto-generated method stub
-		List<Label> list = getCurrentSession().createCriteria(Label.class).createCriteria("noteList")
-				.add(Restrictions.eq("id", id)).list();
+		System.out.println("dao");
+		List<Label> list = getCurrentSession().createCriteria(Label.class).add(Restrictions.eq("id", id)).list();
 		System.out.println(list);
 		return list;
+	}
+
+	@Override
+	public boolean updateLabel(Label label) {
+
+		getCurrentSession().update(label);
+		return true;
+	}
+
+	@Override
+	public Label getLabelById(int labelId) {
+		//Note note = (Note) getCurrentSession().get(Note.class, noteId);
+		Label label=(Label) getCurrentSession().get(Label.class, labelId);
+		return label;
+	}
+
+	@Override
+	public boolean deleteLabel(Label label) {
+		getCurrentSession().delete(label);		return true;
 	}
 
 }
