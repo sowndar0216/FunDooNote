@@ -31,5 +31,6 @@ public interface UserDAO {
 	public void resetPassword(User tempUser);
 	public List<UserOtp> getOtp();
 	public boolean resetOtp(User user,String otp);
+	public boolean active(int id);
 
 }

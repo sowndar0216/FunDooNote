@@ -95,5 +95,6 @@ public class WebAppConfig {
 	public String getKey() {
 		return "amigo";
 	}
+	
 
 }

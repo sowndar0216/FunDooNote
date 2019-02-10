@@ -7,10 +7,10 @@ import com.bridgeit.model.User;
 
 public class Utility {
 
-	public static void emailOtp(User user,String otp) {
+	public static void emailOtp(User user,String token ) {
 		
       
-		Mailer.send("thermoamigo18@gmail.com","ccjxydwuynbqglcw",user.getEmail(),"Otp verfication",otp);  
+		Mailer.send("thermoamigo18@gmail.com","ccjxydwuynbqglcw",user.getEmail(),token);  
 	}
 /*
 	public static void forgetOtp(String user,String otp) {

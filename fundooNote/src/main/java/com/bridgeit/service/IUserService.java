@@ -29,5 +29,6 @@ public interface IUserService {
 	public void verify(String token);
 	public boolean reSendOtp(User user);
 	public boolean resetPassword(UserOtp userOtp);
+	public boolean active(String token);
 	
 }

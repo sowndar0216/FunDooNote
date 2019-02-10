@@ -32,7 +32,7 @@ public class LabelController {
 	private INoteService noteService;
 
 
-	@RequestMapping(value = "/addlabel", method = RequestMethod.POST)
+	@RequestMapping(value ="/addlabel", method = RequestMethod.POST)
 	public ResponseEntity<Response> addlabel(@RequestBody Label label, @RequestHeader("token") String token) {
 		Response response = new Response();
 		System.out.println(label);
@@ -108,19 +108,49 @@ public class LabelController {
 	@RequestMapping(value="/addnotetolabel",method=RequestMethod.POST)
 	public ResponseEntity<Response> addNotetoLabel(@RequestParam String noteId,@RequestParam String labelId )
 	{
+		Response response=new Response();
 		
 		int labelid=Integer.parseInt(labelId);	
 		int noteid=Integer.parseInt(noteId);
 		Note note=noteService.getNoteById(noteid);
-		System.out.println(note);
+		System.out.println("Note of this Id  "+note);
 		Label label=labelService.getLabelById(labelid);
-		System.out.println(label);
-		Response response=new Response();
+		System.out.println("Label of this Id"+label);
+		
 		System.out.println();
 		response.setMessage("added");
+
+		labelService.addLabel(label);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return new ResponseEntity<Response>(response,HttpStatus.OK);
 		
 		
 	}
+	
+	@RequestMapping(value="/deletenotetolabel",method=RequestMethod.DELETE)
+	public ResponseEntity<Response> deleteNotetoLabel(@RequestParam String noteId,@RequestParam String labelId, @RequestHeader("token") String token ){
+		
+		Response response=new Response();
+		int labelid=Integer.parseInt(labelId);	
+		int noteid=Integer.parseInt(noteId);
+		Note note=noteService.getNoteById(noteid);
+		System.out.println("Note of this Id  "+note);
+		Label label=labelService.getLabelById(labelid);
+		System.out.println("Label of this Id"+label);
+		
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
+	}
+	
+	
+	
+	
 
 }

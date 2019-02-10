@@ -3,8 +3,6 @@ package com.bridgeit.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ import com.bridgeit.service.IUserService;
 import com.bridgeit.utility.UserToken;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = { "jwtTokenxxx" })
+//@CrossOrigin(origins = { "*" }, exposedHeaders = { "jwtTokenxxx" })
 
 public class LinkController {
 
@@ -36,7 +34,7 @@ public class LinkController {
 	private IUserService userService;
 
 	@RequestMapping(value = "/")
-	public String mainPage() {
+	public String mainPage() {	
 		return "wellcome";
 	}
 
@@ -124,6 +122,7 @@ public class LinkController {
 		boolean emailCheck = userService.checkEmail(user);
 		respone = new Response();
 		if (emailCheck) {
+			userService.addUser(user);
 			userService.sendOtp(user);
 			respone.setStatus("otp sent");
 			respone.setStatusCode(200);
@@ -168,27 +167,41 @@ public class LinkController {
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 
 	}
+	
+	
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<Response> register(@RequestBody UserOtp otp) {
-		// System.out.println("register");
-		System.out.println(otp);
-		boolean verifyOtp = userService.verifyOtp(otp);
-		// System.out.println(verifyOtp);
-		respone = new Response();
-		if (verifyOtp) {
-			// User user=teamService.getUser();
-			// System.out.println("aa");
-			// System.out.println(tempUser);
-			userService.addUser(tempUser);
-			respone.setStatusCode(200);
-			respone.setStatus("user is registered");
-			return new ResponseEntity<Response>(respone, HttpStatus.OK);
+	@RequestMapping("/userVerify/{token:.+}")
+	public ResponseEntity<Response> activeEmail(@PathVariable String token) {
 
-		}
-		respone.setStatusCode(404);
-		respone.setStatus("user is not registered");
-		return new ResponseEntity<Response>(respone, HttpStatus.OK);
+		Response response = new Response();
+		System.out.println(token);
+		userService.active(token);
+		response.setMessage("verifed");
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
+
 	}
+
+
+//	@RequestMapping(value = "/register", method = RequestMethod.POST)
+//	public ResponseEntity<Response> register(@RequestBody UserOtp otp) {
+//		// System.out.println("register");
+//		System.out.println(otp);
+//		boolean verifyOtp = userService.verifyOtp(otp);
+//		// System.out.println(verifyOtp);
+//		respone = new Response();
+//		if (verifyOtp) {
+//			// User user=teamService.getUser();
+//			// System.out.println("aa");
+//			// System.out.println(tempUser);
+//			userService.addUser(tempUser);
+//			respone.setStatusCode(200);
+//			respone.setStatus("user is registered");
+//			return new ResponseEntity<Response>(respone, HttpStatus.OK);
+//
+//		}
+//		respone.setStatusCode(404);
+//		respone.setStatus("user is not registered");
+//		return new ResponseEntity<Response>(respone, HttpStatus.OK);
+//	}
 
 }

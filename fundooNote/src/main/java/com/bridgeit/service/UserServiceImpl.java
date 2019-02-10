@@ -14,6 +14,7 @@ import com.bridgeit.dto.UserDto;
 import com.bridgeit.model.User;
 import com.bridgeit.model.UserOtp;
 import com.bridgeit.utility.ASEAlgorithm;
+import com.bridgeit.utility.UserToken;
 import com.bridgeit.utility.Utility;
 
 
@@ -165,6 +166,23 @@ private String key;
 		
 		}
 		System.out.println("sssss");
+		return false;
+	}
+
+	@Override
+	public boolean active(String token) {
+		try {
+			int id=UserToken.tokenVerify(token);
+			System.out.println(id);
+			 return userDAO.active(id);
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return false;
 	}
 

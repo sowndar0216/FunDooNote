@@ -21,7 +21,7 @@ import com.bridgeit.service.INoteService;
 import com.bridgeit.service.IUserService;
 
 @RestController
- @CrossOrigin(origins = { "http://localhost:4200" }, exposedHeaders = {"token" })
+//@CrossOrigin(origins = { "*" }, exposedHeaders = {"token" })
 public class NoteController {
 
 	Response respone;
@@ -36,6 +36,7 @@ public class NoteController {
 	public ResponseEntity<Response> addNote(@RequestBody Note note, @RequestHeader("token") String token) {
 
 		System.out.println("new note   "+note);
+		
 		noteService.addNote(note, token);
 		respone = new Response();
 		respone.setStatusCode(166);
@@ -180,9 +181,19 @@ public class NoteController {
 		return new ResponseEntity<Response>(respone, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="search",method =RequestMethod.GET)
+	public ResponseEntity<List<Note>> searchNote( @RequestHeader("token") String token,@RequestParam String noteName){
+		
+		
+List<Note> noteList=null;
+		return new ResponseEntity <List<Note>>(noteList, HttpStatus.OK);
+
+
+		
 	
 	
 	
 	
+	}
 
 }

@@ -57,16 +57,35 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public boolean sendOtp(User user) {
 		String otp = Utility.getOtp();
-		System.out.println("otp sent");
-		Utility.emailOtp(user, otp);
-		UserOtp otp2 = new UserOtp();
-		otp2.setEmail(user.getEmail());
-		otp2.setOtp(otp);
-		otp2.setId(user.getId());
-		System.out.println(otp2.getEmail() + "  " + otp2.getOtp() + "  " + otp2.getId());
-		// getCurrentSession().update(otp2);
-		System.out.println("update");
-		getCurrentSession().save(otp2);
+		
+		
+		try {
+			String token = UserToken.generateToken(user.getId());
+			System.out.println("otp sent");
+			Utility.emailOtp(user, token);
+			//UserOtp otp2 = new UserOtp();
+			//otp2.setEmail(user.getEmail());
+			//otp2.setOtp(otp);
+			//otp2.setId(user.getId());
+			//System.out.println(otp2.getEmail() + "  " + otp2.getOtp() + "  " + otp2.getId());
+			// getCurrentSession().update(otp2);
+			System.out.println("update");
+			//getCurrentSession().save(otp2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	//	System.out.println("otp sent");
+		//Utility.emailOtp(user, otp);
+//		UserOtp otp2 = new UserOtp();
+//		otp2.setEmail(user.getEmail());
+//		otp2.setOtp(otp);
+//		otp2.setId(user.getId());
+//		System.out.println(otp2.getEmail() + "  " + otp2.getOtp() + "  " + otp2.getId());
+//		// getCurrentSession().update(otp2);
+//		System.out.println("update");
+//		getCurrentSession().save(otp2);
 
 		return true;
 	}
@@ -109,8 +128,7 @@ public class UserDAOImpl implements UserDAO {
 		List<User> userList = getUsers();
 		for (int i = 0; i < userList.size(); i++) {
 			if (userList.get(i).getEmail().equals(user.getEmail())
-					&& userList.get(i).getPassword().equals(user.getPassword()))
-			{
+					&& userList.get(i).getPassword().equals(user.getPassword())) {
 				System.out.println(userList.get(i).getId());
 				ModelMapper mapper = new ModelMapper();
 
@@ -206,6 +224,26 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("updated");
 		return true;
 
+	}
+
+	@Override
+	public boolean active(int id) {
+		// TODO Auto-generated method stub
+		
+		List<User> userList = getUsers();
+		
+		for(int i=0;i<userList.size();i++) {
+			if(userList.get(i).getId()==id) {
+				
+				User user=getUser(id);
+				user.setActive(true);
+				
+				getCurrentSession().update(user);
+			}
+		}
+		
+		
+		return false;
 	}
 
 }

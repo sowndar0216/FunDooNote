@@ -39,16 +39,18 @@ public class User implements Serializable{
 		this.mobileNumber = mobileNumber;
 	}
 
-	public int getIsActive() {
+
+
+	@Column(name="isActive")
+	private boolean isActive;
+
+	public boolean isActive() {
 		return isActive;
 	}
 
-	public void setIsActive(int isActive) {
+	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	@Column(name="isActive")
-	private int isActive;
 
 	public Integer getId() {
 		return id;

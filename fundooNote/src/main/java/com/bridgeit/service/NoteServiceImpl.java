@@ -1,6 +1,9 @@
 package com.bridgeit.service;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,9 @@ public class NoteServiceImpl implements INoteService {
 			System.out.println(id);
 			note.setUser(user);
 
-			noteDao.addNote(note);
+			 Date date = new Date();
+			 System.out.println(date);
+			 noteDao.addNote(note);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -170,6 +175,8 @@ public class NoteServiceImpl implements INoteService {
 	public void updateEditNote(Note note) {
 		// TODO Auto-generated method stub
 		System.out.println("going  to update ");
+	Date date=new Date();
+		note.setLastModifiedStamp(date);
 		noteDao.updateNote(note);
 		System.out.println("updated suceesfully");
 	}
